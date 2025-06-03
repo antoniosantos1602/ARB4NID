@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adversarial Attacks</title>
+    <script defer src="/static/js/main.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background-color: #f7f7f7;
+        }
+        h1 {
+            margin-bottom: 1rem;
+        }
+        button {
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        .section {
+            margin-top: 2rem;
+        }
+        .attack-block {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Adversarial Testing Platform</h1>
+
+  <form id="upload-form" enctype="multipart/form-data">
+      <label>Treino (CSV): <input type="file" name="train" accept=".csv" required></label><br><br>
+      <label>Teste (CSV): <input type="file" name="test" accept=".csv" required></label><br><br>
+      <label>Modelo (.joblib): <input type="file" name="model" accept=".joblib" required></label><br><br>
+
+      <button type="button" onclick="handleUpload('evasion')">Evasion</button>
+      <button type="button" onclick="handleUpload('poisoning')">Poisoning</button>
+
+  </form>
+  <!-- Mostra o modo selecionado -->
+  <div id="mode-output" style="margin-top: 1rem; font-weight: bold;"></div>
+
+  <!-- Secção para seleção de ataques -->
+  <div id="attack-selection" class="section" style="display:none;">
+      <h2>Ordenar e configurar ataques</h2>
+      <div id="attack-list"></div>
+
+      <button id="run-button" style="display:none;" onclick="runAttacks()">Executar ataques</button>
+
+  </div>
+
+  <div id="results-section" class="section" style="display: none;">
+    <h2>Resultados dos Ataques</h2>
+    <div id="results"></div>
+  </div>
+
+  <button id="save-button" style="display:none;" onclick="saveResults()">Salvar Resultados</button>
+
+  <div id="history-section" class="section">
+    <h2>Histórico de Execuções</h2>
+    <table id="history-table" border="1" style="width: 100%; text-align: left;">
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Ataque</th>
+                <th>Perturbadas</th>
+                <th>Restantes</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+
+
+
+</body>
+</html>
