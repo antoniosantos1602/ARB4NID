@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Adversarial Attacks</title>
+    <title>ARB4NID</title>
     <script defer src="/static/js/main.js"></script>
     <style>
         body {
@@ -31,15 +31,15 @@
 </head>
 <body>
 
-    <h1>Adversarial Testing Platform</h1>
+    <h1>Model Robustness Assessment</h1>
 
   <form id="upload-form" enctype="multipart/form-data">
-      <label>Treino (CSV): <input type="file" name="train" accept=".csv" required></label><br><br>
-      <label>Teste (CSV): <input type="file" name="test" accept=".csv" required></label><br><br>
-      <label>Modelo (.joblib): <input type="file" name="model" accept=".joblib" required></label><br><br>
+      <label>Train (CSV): <input type="file" name="train" accept=".csv" required></label><br><br>
+      <label>Test (CSV): <input type="file" name="test" accept=".csv" required></label><br><br>
+      <label>Model (.joblib): <input type="file" name="model" accept=".joblib" required></label><br><br>
 
-      <button type="button" onclick="handleUpload('evasion')">Evasion</button>
-      <button type="button" onclick="handleUpload('poisoning')">Poisoning</button>
+      <button type="button" onclick="handleUpload('evasion')">Evasion Attacks</button>
+      <button type="button" onclick="handleUpload('poisoning')">Adversarial Training</button>
 
   </form>
   <!-- Mostra o modo selecionado -->
@@ -47,29 +47,29 @@
 
   <!-- Secção para seleção de ataques -->
   <div id="attack-selection" class="section" style="display:none;">
-      <h2>Ordenar e configurar ataques</h2>
+      <h2>Configuration attacks</h2>
       <div id="attack-list"></div>
 
-      <button id="run-button" style="display:none;" onclick="runAttacks()">Executar ataques</button>
+      <button id="run-button" style="display:none;" onclick="runAttacks()">Execute Attacks</button>
 
   </div>
 
   <div id="results-section" class="section" style="display: none;">
-    <h2>Resultados dos Ataques</h2>
+    <h2>Results</h2>
     <div id="results"></div>
   </div>
 
-  <button id="save-button" style="display:none;" onclick="saveResults()">Salvar Resultados</button>
+  <button id="save-button" style="display:none;" onclick="saveResults()">Save Results</button>
 
   <div id="history-section" class="section">
     <h2>Histórico de Execuções</h2>
     <table id="history-table" border="1" style="width: 100%; text-align: left;">
         <thead>
             <tr>
-                <th>Modelo</th>
+                <th>Model</th>
                 <th>Ataque</th>
-                <th>Perturbadas</th>
-                <th>Restantes</th>
+                <th>Disturbed samples</th>
+                <th></th>
             </tr>
         </thead>
         <tbody></tbody>

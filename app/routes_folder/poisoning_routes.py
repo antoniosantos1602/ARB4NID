@@ -18,10 +18,14 @@ def run_poisoning_attacks():
     model, scaler = load_model("uploads/model.joblib")
 
 
-
     if scaler:
         X_train = scaler.transform(X_train)
         X_test = scaler.transform(X_test)
+
+
+    # Fazer predição com função genérica
+    y_pred = predict_model(model, X_test)
+    acc = accuracy_score(y_test, y_pred)
 
     results = []
     for attack in ordered_attacks:
@@ -30,22 +34,23 @@ def run_poisoning_attacks():
         if name in ['FGSM', 'PGD']:
             classifier, adv_attack = run_adversarial_training(model, X_train, y_train, name, **params)
 
-            # Clean accuracy
-            clean_preds = classifier.predict(X_test)
-            clean_preds = np.argmax(clean_preds, axis=1)
-            clean_acc = accuracy_score(y_test, clean_preds)
+            # Accuracy After Adversarial Training
+            preds = classifier.predict(X_test)
+            preds = np.argmax(preds, axis=1)
+            acc_after_adv = accuracy_score(y_test, preds)
 
             # Robust accuracy
-            X_test_adv = adv_attack.generate(X_test)
-            adv_preds = classifier.predict(X_test_adv)
-            adv_preds = np.argmax(adv_preds, axis=1)
-            robust_acc = accuracy_score(y_test, adv_preds)
+            #X_test_adv = adv_attack.generate(X_test)
+            #adv_preds = classifier.predict(X_test_adv)
+            #adv_preds = np.argmax(adv_preds, axis=1)
+            #robust_acc = accuracy_score(y_test, adv_preds)
 
             results.append({
                 "attack": name,
                 "result": {
-                    "clean_accuracy": round(clean_acc * 100, 2),
-                    "robust_accuracy": round(robust_acc * 100, 2)
+                    "accuracy_original_samples": round(acc * 100, 2),
+                    "accuracy_after_training": round(acc_after_adv * 100, 2),
+
                 }
             })
         else:

@@ -133,6 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (attackName === 'ZOO') {
             paramsDiv.innerHTML = `
                 <label>Max Iter: <input type="number" onchange="updateParam(${idx}, 'max_iter', this.value)" /></label>
+                <label>Learning Rate: <input type="number" step="0.01" onchange="updateParam(${idx}, 'learning_rate', this.value)" /></label>
+                <label>Binary Search Steps: <input type="number" onchange="updateParam(${idx}, 'binary_search_steps', this.value)" /></label>
+                <label>Initial Const: <input type="number" step="0.001" onchange="updateParam(${idx}, 'initial_const', this.value)" /></label>
+                <label>Batch Size:</label>
+                <div id="batch-options-${idx}">
+                    ${[64, 128].map(size => `
+                        <button type="button" onclick="setBatchSize(${idx}, ${size}, this)">${size}</button>
+                    `).join(' ')}
+                </div>
             `;
         }
 
@@ -197,8 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentMode === 'poisoning') {
             div.innerHTML = `
                 <strong>${res.attack}</strong><br>
-                Clean Accuracy: ${res.result.clean_accuracy}%<br>
-                Robust Accuracy: ${res.result.robust_accuracy}%<br>
+                Accuracy in original samples: ${res.result.accuracy_original_samples}%<br>
+                Accuracy After Adversarial Training: ${res.result.accuracy_after_training}%<br>
             `;
         } else {
             div.innerHTML = `
@@ -208,6 +217,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 Robust Accuracy: ${res.result.robust_accuracy}%<br>
                 Attack Success Rate: ${res.result.asr}%<br>
                 Tempo de execução: ${res.result.execution_time} s<br>
+            `;
+        }
+        if (res.attack === 'Final Summary') {
+            div.innerHTML = `
+                <strong>Resumo Final</strong><br>
+                Amostras Iniciais: ${res.result.initial}<br>
+                Amostras Restantes: ${res.result.remaining}<br>
+                Final Robust Accuracy: ${res.result.final_robust_accuracy}%<br>
+                Final ASR: ${res.result.final_asr}%<br>
+                Total Time: ${res.result.total_time}s<br>
+                RSD: ${res.result.rsd}<br>
+
             `;
         }
 
