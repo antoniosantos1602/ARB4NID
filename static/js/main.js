@@ -203,6 +203,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.className = 'attack-block';
 
+        if (res.attack === 'Clean Accuracy') {
+            const accDiv = document.createElement('div');
+            accDiv.className = 'attack-block';
+            accDiv.innerHTML = `
+                <strong>Clean Accuracy:</strong> ${res.result.accuracy}%<br>
+            `;
+            resultsDiv.appendChild(accDiv);
+            return; // já trataste, salta para o próximo
+        }
+
         if (currentMode === 'poisoning') {
             div.innerHTML = `
                 <strong>${res.attack}</strong><br>
@@ -217,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 Robust Accuracy: ${res.result.robust_accuracy}%<br>
                 Attack Success Rate: ${res.result.asr}%<br>
                 Tempo de execução: ${res.result.execution_time} s<br>
+                RSD (Isolado): ${res.result.rsd}<br>
             `;
         }
         if (res.attack === 'Final Summary') {
