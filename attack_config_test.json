@@ -1,0 +1,40 @@
+{
+  "attacks": [
+    {
+      "type": "FGM_ART",
+      "params": { "eps": 0.25, "eps_step": 0.05, "batch_size": 64, "norm": "inf", "targeted": "False", "target_class": 0 }
+    },
+    {
+      "type": "PGD_ART",
+      "params": { "eps": 0.25, "eps_step": 0.05, "max_iter": 20, "batch_size": 64, "norm": "inf", "targeted": "False", "target_class": 0 }
+    },
+    {
+      "type": "JSMA_ART",
+      "params": { "theta": 0.15, "gamma": 0.15, "batch_size": 64, "targeted": "False", "target_class": 0 }
+    },
+    {
+      "type": "DeepFool_ART",
+      "params": { "max_iter": 50, "eps": 0.000001, "batch_size": 64 }
+    },
+    {
+      "type": "C&W_L2_ART",
+      "params": { "confidence": 0.0, "max_iter": 20, "batch_size": 8, "targeted": "False", "target_class": 0 }
+    },
+    {
+      "type": "ZOO_ART",
+      "params": { "max_iter": 20, "binary_search_steps": 2, "confidence": 0.0, "learning_rate": 0.3, "targeted": "False", "target_class": 0 }
+    },
+    {
+      "type": "BoundaryAttack_ART",
+      "params": { "max_iter": 30, "batch_size": 64, "targeted": "False", "target_class": 0 }
+    },
+    {
+      "type": "HopSkipJump_ART",
+      "params": { "max_iter": 20, "max_eval": 50, "init_eval": 20, "init_size": 10, "batch_size": 64, "norm": "inf", "targeted": "False", "target_class": 0 }
+    },
+    {
+      "type": "A2PM",
+      "params": { "iterations": 5, "patience": 2, "targeted": "False", "target_class": 0 }
+    }
+  ]
+}

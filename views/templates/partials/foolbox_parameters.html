@@ -1,0 +1,180 @@
+<hr class="my-4">
+<h2 class="text-center mt-4">Select an Adversarial Attack from FOOLBOX</h2>
+
+
+<!-- FGM -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_fgm_check" name="selected_attacks" value="FGM_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_fgm_params')">
+  <label class="form-check-label" for="fb_fgm_check" data-bs-toggle="collapse" data-bs-target="#fb_fgm_params">
+    FGM (L2 Fast Gradient Method)
+  </label>
+</div>
+<div class="collapse" id="fb_fgm_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Epsilon</label>
+    <input type="number" class="form-control mb-2" name="fgm_fb_eps" step="0.01" value="0.2">
+  </div>
+</div>
+
+<!-- FGSM -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_fgsm_check" name="selected_attacks" value="FGSM_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_fgsm_params')">
+  <label class="form-check-label" for="fb_fgsm_check" data-bs-toggle="collapse" data-bs-target="#fb_fgsm_params">
+    FGSM
+  </label>
+</div>
+<div class="collapse" id="fb_fgsm_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Epsilon</label>
+    <input type="number" class="form-control mb-2" name="epsilon" step="0.01" placeholder="Ex: 0.2">
+  </div>
+</div>
+
+<!-- PGD (Linf) -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_pgd_check" name="selected_attacks" value="PGD_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_pgd_params')">
+  <label class="form-check-label" for="fb_pgd_check" data-bs-toggle="collapse" data-bs-target="#fb_pgd_params">
+    PGD (L∞ Projected Gradient Descent)
+  </label>
+</div>
+<div class="collapse" id="fb_pgd_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Epsilon</label>
+    <input type="number" class="form-control mb-2" name="epsilon_pgd" step="0.01">
+    <label class="form-label">Steps</label>
+    <input type="number" class="form-control mb-2" name="steps">
+    <label class="form-label">Relative Step Size</label>
+    <input type="number" class="form-control mb-2" name="rel_stepsize" step="0.01">
+  </div>
+</div>
+
+<!-- L2PGD -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_l2pgd_check" name="selected_attacks" value="L2PGD_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_l2pgd_params')">
+  <label class="form-check-label" for="fb_l2pgd_check" data-bs-toggle="collapse" data-bs-target="#fb_l2pgd_params">
+    PGD (L2)
+  </label>
+</div>
+<div class="collapse" id="fb_l2pgd_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Epsilon</label>
+    <input type="number" class="form-control mb-2" name="epsilon_pgd" step="0.01">
+    <label class="form-label">Steps</label>
+    <input type="number" class="form-control mb-2" name="steps">
+    <label class="form-label">Relative Step Size</label>
+    <input type="number" class="form-control mb-2" name="rel_stepsize" step="0.01">
+  </div>
+</div>
+
+<!-- L2DeepFool -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_l2df_check" name="selected_attacks" value="L2DeepFool_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_l2df_params')">
+  <label class="form-check-label" for="fb_l2df_check" data-bs-toggle="collapse" data-bs-target="#fb_l2df_params">
+    L2 DeepFool
+  </label>
+</div>
+<div class="collapse" id="fb_l2df_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Steps</label>
+    <input type="number" class="form-control mb-2" name="steps">
+    <label class="form-label">Overshoot</label>
+    <input type="number" class="form-control mb-2" name="overshoot" step="0.01">
+  </div>
+</div>
+
+<!-- LinfDeepFool -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_linfdf_check" name="selected_attacks" value="LinfDeepFool_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_linfdf_params')">
+  <label class="form-check-label" for="fb_linfdf_check" data-bs-toggle="collapse" data-bs-target="#fb_linfdf_params">
+    L∞ DeepFool
+  </label>
+</div>
+<div class="collapse" id="fb_linfdf_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Steps</label>
+    <input type="number" class="form-control mb-2" name="steps">
+    <label class="form-label">Overshoot</label>
+    <input type="number" class="form-control mb-2" name="overshoot" step="0.01">
+  </div>
+</div>
+
+<!-- HopSkipJump -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_hop_check" name="selected_attacks" value="HopSkipJumpAttack_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_hop_params')">
+  <label class="form-check-label" for="fb_hop_check" data-bs-toggle="collapse" data-bs-target="#fb_hop_params">
+    HopSkipJump
+  </label>
+</div>
+<div class="collapse" id="fb_hop_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Steps</label>
+    <input type="number" class="form-control mb-2" name="steps">
+  </div>
+</div>
+
+<!-- C&W -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_cw_check" name="selected_attacks" value="L2CarliniWagnerAttack_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_cw_params')">
+  <label class="form-check-label" for="fb_cw_check" data-bs-toggle="collapse" data-bs-target="#fb_cw_params">
+    Carlini & Wagner (L2)
+  </label>
+</div>
+<div class="collapse" id="fb_cw_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Steps</label>
+    <input type="number" class="form-control mb-2" name="steps">
+  </div>
+</div>
+
+<!-- LinfBIM -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_linf_bim_check" name="selected_attacks" value="LinfBIM_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_linf_bim_params')">
+  <label class="form-check-label" for="fb_linf_bim_check" data-bs-toggle="collapse" data-bs-target="#fb_linf_bim_params">
+    BIM (L∞ Basic Iterative Method)
+  </label>
+</div>
+<div class="collapse" id="fb_linf_bim_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Epsilon</label>
+    <input type="number" class="form-control mb-2" name="epsilon" step="0.01">
+    <label class="form-label">Steps</label>
+    <input type="number" class="form-control mb-2" name="steps">
+    <label class="form-label">Relative Step Size</label>
+    <input type="number" class="form-control mb-2" name="rel_stepsize" step="0.01">
+  </div>
+</div>
+
+<!-- Boundary Attack -->
+<div class="form-check mb-2 mt-3">
+  <input class="form-check-input" type="checkbox" id="fb_boundary_check" name="selected_attacks" value="BoundaryAttack_FOOLBOX"
+         onchange="toggleCollapseAndParams(this, 'fb_boundary_params')">
+  <label class="form-check-label" for="fb_boundary_check" data-bs-toggle="collapse" data-bs-target="#fb_boundary_params">
+    Boundary Attack
+  </label>
+</div>
+<div class="collapse" id="fb_boundary_params">
+  <div class="card card-body bg-dark border-secondary mt-2">
+    <label class="form-label">Steps</label>
+    <input type="number" class="form-control mb-2" name="steps">
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll('input[name="selected_attacks"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const checked = document.querySelector('input[name="selected_attacks"]:checked');
+      document.getElementById('foolbox_attack_type_hidden').value = checked ? checked.value : "";
+    });
+  });
+});
+</script>

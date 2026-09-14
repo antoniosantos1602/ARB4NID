@@ -1,0 +1,79 @@
+
+.result-card {
+  background: #1a1a1a;
+  border: 1px solid #2dd4bf55;
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.1);
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+  color: #e5e5e5;
+  transition: all 0.3s ease;
+}
+
+.result-card:hover {
+  box-shadow: 0 0 14px rgba(45, 212, 191, 0.3);
+  transform: translateY(-2px);
+}
+
+.result-card-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #2dd4bf;
+}
+
+.result-subinfo {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.result-section {
+  margin-top: 1rem;
+  border-top: 1px solid #2dd4bf33;
+  padding-top: 1rem;
+}
+
+.result-card .btn-danger {
+  background-color: #b91c1c;
+  border: none;
+}
+
+.result-card .btn-danger:hover {
+  background-color: #dc2626;
+}
+
+.chart-container-box {
+  background: #1a1a1a;
+  border: 1px solid #2dd4bf;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.results-container-fixed {
+    max-width: 1200px;
+    margin: 30px auto 0 auto;
+    padding: 0 20px;
+    min-height: 100px;
+}
+
+.model-group {
+    margin-bottom: 2rem;
+}
+
+.model-group-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    color: #2dd4bf;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid #2dd4bf44;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.model-group-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}

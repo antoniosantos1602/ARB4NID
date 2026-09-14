@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ARB4NID</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="/static/js/scrollreveal.init.js"></script>
+  <link rel="stylesheet" href="/static/css/index.css">
+
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #121212;">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <img src="/static/img/logo_.png" alt="RB4NID Logo" height="40" class="me-2">
+        ARB4NID
+      </a>
+      <!-- Botão mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Links -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link text-light" href="#hero">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#comparison">Comparison</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#about">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="text-white text-center py-5" style="background-color: #0f0f0f;">
+    <div class="container">
+      <img src="/static/img/logo_.png" alt="RB4NID" class="mb-4" style="height: 100px;">
+      <h1 class="display-4 fw-bold glow-title">ARB4NID </h1>
+      <p id="typing" class="lead text-lightblue mt-3"></p>
+      <a href="#features" class="btn btn-outline-info mt-4 px-4 py-2">Get Started</a>
+    </div>
+  </section>
+
+  <section id="features" class="section-alt position-relative overflow-hidden text-center">
+  <div id="particles-features"></div>
+
+  <div class="container position-relative" style="z-index: 1;">
+    <h2 class="glow mb-5">Key Features</h2>
+    <div id="featuresCarousel" class="carousel slide" data-bs-ride="false">
+
+      <!-- Indicators -->
+      <div class="carousel-indicators" style="position:static;margin-bottom:2rem;">
+        <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="0" class="active" aria-current="true" style="width:8px;height:8px;border-radius:50%;border:none;background:#2dd4bf;opacity:1;margin:0 4px;"></button>
+        <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="1" style="width:8px;height:8px;border-radius:50%;border:none;background:#444;opacity:1;margin:0 4px;"></button>
+      </div>
+
+      <div class="carousel-inner">
+
+        <!-- SLIDE 1: Tool Usage + Multiple Attacks texto -->
+        <div class="carousel-item active">
+          <div class="feature-horizontal mb-4">
+            <div class="feature-icon"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="feature-content">
+              <h5>Tool Usage</h5>
+              <p class="text-lightblue">
+                The ARB4NID was designed to be used by individuals without requiring prior knowledge of the adversarial domain. To operate it, the user only needs to provide pre-processed data by uploading the test datasets, along with the corresponding model stored in joblib format and its associated scaler. Additionally, the target feature (label) must be provided as one-hot encoded labels.
+              </p>
+            </div>
+          </div>
+          <div class="feature-horizontal">
+            <div class="feature-icon"><i class="bi bi-shield-lock"></i></div>
+            <div class="feature-content">
+              <h5>Multiple Attacks</h5>
+              <p class="text-lightblue">Attacks are categorized by the attacker’s level of knowledge about the target model:</p>
+              <ul class="text-lightblue" style="padding-left:1.25rem;line-height:2;">
+                <li><strong>White-Box</strong> — full access to the model’s internals; uses gradient calculations to craft precise perturbations. Only applicable to differentiable models (e.g. neural networks).</li>
+                <li><strong>Gray-Box</strong> — partial knowledge of the model; may leverage architecture details without full gradient access.</li>
+                <li><strong>Black-Box</strong> — no access to model internals; relies solely on input-output queries, making it applicable to any model type.</li>
+              </ul>
+              <p class="text-lightblue" style="margin-top:0.75rem;">Attacks can also be configured by objective:</p>
+              <ul class="text-lightblue" style="padding-left:1.25rem;line-height:2;">
+                <li><strong>Targeted</strong> — forces the model to predict a specific predefined class.</li>
+                <li><strong>Untargeted</strong> — simply causes a misclassification into any class other than the original.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: Tabela de ataques -->
+        <div class="carousel-item">
+          <div class="feature-horizontal">
+            <div class="feature-icon"><i class="bi bi-shield-lock"></i></div>
+            <div class="feature-content">
+              <h5>ARB4NID — Available Attacks</h5>
+              <div class="table-responsive">
+                <table class="table table-bordered table-attacks text-center align-middle mb-0" style="color:#e5e5e5;border-color:#2a2a4a;font-size:0.82rem;">
+                  <thead>
+                    <tr style="font-family:’Orbitron’,sans-serif;font-size:0.82rem;">
+                      <th style="background:#111;color:#fff;border-color:#2a2a4a;text-align:left;">Attack Method</th>
+                      <th style="background:#111;color:#fff;border-color:#2a2a4a;">Category</th>
+                      <th style="background:#111;color:#fff;border-color:#2a2a4a;">Objective</th>
+                    </tr>
+                  </thead>
+                  <tbody style="font-weight:600;color:#fff;">
+                    <tr><td style="text-align:left;color:#fff;border-color:#2a2a4a;">FGM</td>            <td style="color:#fff;border-color:#2a2a4a;">White-Box</td><td style="color:#fff;border-color:#2a2a4a;">Targeted / Untargeted</td></tr>
+                    <tr><td style="text-align:left;color:#fff;border-color:#2a2a4a;">PGD</td>            <td style="color:#fff;border-color:#2a2a4a;">White-Box</td><td style="color:#fff;border-color:#2a2a4a;">Targeted / Untargeted</td></tr>
+                    <tr><td style="text-align:left;color:#fff;border-color:#2a2a4a;">JSMA</td>           <td style="color:#fff;border-color:#2a2a4a;">White-Box</td><td style="color:#fff;border-color:#2a2a4a;">Targeted / Untargeted</td></tr>
+                    <tr><td style="text-align:left;color:#fff;border-color:#2a2a4a;">C&amp;W</td>       <td style="color:#fff;border-color:#2a2a4a;">White-Box</td><td style="color:#fff;border-color:#2a2a4a;">Targeted / Untargeted</td></tr>
+                    <tr><td style="text-align:left;color:#fff;border-color:#2a2a4a;">DeepFool</td>       <td style="color:#fff;border-color:#2a2a4a;">White-Box</td><td style="color:#fff;border-color:#2a2a4a;">Untargeted</td></tr>
+                    <tr><td style="text-align:left;color:#fff;border-color:#2a2a4a;">ZOO</td>            <td style="color:#fff;border-color:#2a2a4a;">Black-Box</td><td style="color:#fff;border-color:#2a2a4a;">Targeted / Untargeted</td></tr>
+                    <tr><td style="text-align:left;color:#fff;border-color:#2a2a4a;">Boundary Attack</td><td style="color:#fff;border-color:#2a2a4a;">Black-Box</td><td style="color:#fff;border-color:#2a2a4a;">Targeted / Untargeted</td></tr>
+                    <tr><td style="text-align:left;color:#fff;border-color:#2a2a4a;">HopSkipJump</td>   <td style="color:#fff;border-color:#2a2a4a;">Black-Box</td><td style="color:#fff;border-color:#2a2a4a;">Targeted / Untargeted</td></tr>
+                    <tr><td style="text-align:left;color:#fff;border-color:#2a2a4a;">A2PM</td>           <td style="color:#fff;border-color:#2a2a4a;">Gray-Box</td><td style="color:#fff;border-color:#2a2a4a;">Targeted / Untargeted</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#featuresCarousel" data-bs-slide="prev" style="width:2.5rem;opacity:0.7;">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#featuresCarousel" data-bs-slide="next" style="width:2.5rem;opacity:0.7;">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+
+    </div>
+
+
+  </div>
+</section>
+
+
+  <section id="comparison" class="comparison-section text-center">
+    <div id="particles-comparison"></div>
+    <div class="container">
+
+          <!--
+      <h2 class="glow-title glow-heading mb-5">Tool Overview & Comparison</h2>
+
+      <div id="toolsOverviewCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner">
+
+          <div class="carousel-item active">
+            <div class="row justify-content-center">
+              <div class="col-md-4 mb-4">
+                <div class="p-4 bg-black rounded shadow-lg h-100 border border-secondary tool-card transition">
+                  <img src="/static/img/art_lfai.webp" class="mb-3" style="height: 50px;">
+                  <h5 class="text-white">Adversarial Robustness Toolbox</h5>
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-4">
+                <div class="p-4 bg-black rounded shadow-lg h-100 border border-secondary tool-card transition">
+                  <img src="/static/img/foolbox.png" class="mb-3" style="height: 50px;">
+                  <h5 class="text-white">Foolbox</h5>
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-4">
+                <div class="p-4 bg-black rounded shadow-lg h-100 border border-secondary tool-card transition">
+                  <h5 class="text-white">Adaptative Perturbation Pattern Method
+
+</h5>
+                  <p class="text-lightblue small">
+                    A2PM is a gray-box approach for generating realistic adversarial examples in network intrusion detection systems.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+-->
+          <!--
+          <div class="carousel-item">
+              <div class="table-wrapper table-responsive">
+                <table id="main-table" class="table table-bordered table-glass table-transparent">
+                    <thead>
+                  <tr>
+                    <th>Libraries / Attacks</th>
+                    <th>ART</th>
+                    <th>FoolBox</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>TensorFlow</td><td>✔</td><td>✔</td></tr>
+                  <tr><td>PyTorch</td><td>✔</td><td>✔</td></tr>
+                  <tr><td>Keras</td><td>✔</td><td>✔</td></tr>
+                  <tr><td>FGM / FGSM</td><td>✔</td><td>✔</td></tr>
+                  <tr><td>JSMA</td><td>✔</td><td></td></tr>
+                  <tr><td>ZOO</td><td>✔</td><td></td></tr>
+                  <tr><td>C&W</td><td>✔</td><td>✔</td></tr>
+                  <tr><td>PGD</td><td>✔</td><td>✔</td></tr>
+                  <tr><td>DeepFool</td><td>✔</td><td>✔</td></tr>
+                  <tr><td>Boundary Attack</td><td>✔</td><td>✔</td></tr>
+                  <tr><td>BIM</td><td>✔</td><td>✔</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <div class="carousel-indicators justify-content-center">
+            <button type="button" data-bs-target="#toolsOverviewCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#toolsOverviewCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          </div>
+        </div>
+      </div>
+      -->
+
+      <div class="row g-5 feature-row text-start">
+
+        <!-- Robustness Evaluation -->
+        <div class="col-12">
+          <div class="feature-horizontal">
+            <div class="feature-icon">
+              <i class="bi bi-speedometer"></i>
+            </div>
+            <div class="feature-content">
+              <h5>Robustness Evaluation</h5>
+              <p class="text-lightblue">
+                Most adversarial methods generate perturbations without considering the domain constraints inherent to tabular data, such as network traffic. This process can produce adversarial examples with unrealistic or invalid values, making the attacks less credible in real-world scenarios.
+              </p>
+              <p class="text-lightblue" style="margin-top:0.75rem;">
+                To address this, ARB4NID introduces a robustness evaluation driven by attack reputation — an indicator that measures to what extent the generated adversarial examples respect the data domain, distinguishing attacks that are technically successful from those that are both effective and realistic.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Adversarial Metrics -->
+        <div class="col-12">
+          <div class="feature-horizontal">
+            <div class="feature-icon">
+              <i class="bi bi-bar-chart-line"></i>
+            </div>
+            <div class="feature-content">
+              <h5>Adversarial Metrics</h5>
+              <ul class="text-lightblue" style="list-style:none;padding:0;margin:0;line-height:2;">
+                <li><strong>Adversarial Accuracy (AA)</strong> — Percentage of correctly classified samples for which the model maintained the correct prediction after the adversarial perturbations were applied.</li>
+                <li><strong>Attack Success Rate (ASR)</strong> — Percentage of correctly classified samples that were induced into an incorrect classification by the adversarial attack.</li>
+                <li><strong>Realistic Adversarial Accuracy (RAA)</strong> — Measure of model robustness that jointly accounts for resistance to adversarial attacks and the realism of the generated perturbations, penalising examples that violate domain constraints proportionally to the degree of violation.</li>
+                <li><strong>Attack Reputation Score (ARS)</strong> — Adversarial success rate weighted by the reputation of each adversarial sample, reflecting the proportion of examples that fool the model while preserving coherence with the semantic, logical and statistical constraints of the domain.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model Robustness -->
+        <div class="col-12">
+          <div class="feature-horizontal">
+            <div class="feature-icon">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <div class="feature-content">
+              <h5>Model Robustness</h5>
+              <p class="text-lightblue">
+                Results are aggregated across all executed attacks to produce a global robustness score per model. The dashboard highlights the average RAA and the worst-case scenario, enabling direct comparison between models and identification of the most vulnerable configurations.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="About" class="section-alt text-center position-relative">
+    <div class="a2pm-image"></div>
+
+    <div class="container position-relative" style="z-index: 1;">
+      <div class="text-center mt-4">
+        <a href="/menu" class="btn btn-lg btn-outline-light px-5 py-3 glow">
+          Start Adversarial Evaluation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center py-4">
+    <div>© 2025 | ARB4NID </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="/static/js/particles.index.js"></script>
+
+</body>
+
+
+
+
+<script src="/static/js/typing.effect.js"></script>
+
+
+</html>
