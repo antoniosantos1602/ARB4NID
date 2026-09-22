@@ -34,13 +34,14 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh; /* Garante altura total do ecrã */
+      min-height: 100vh;
       position: relative;
       text-align: center;
     }
 
     #particles-features,
-    #particles-comparison {
+    #particles-comparison,
+    #particles-about {
       position: absolute;
       top: 0;
       left: 0;
@@ -74,7 +75,6 @@
       background-color: transparent !important;
     }
 
-    /* Estilo opcional extra para mais transparência e leveza */
     .table-transparent {
       background-color: transparent !important;
       border: none !important;

@@ -14,6 +14,7 @@ from models.data.datasetInteligence import DatasetIntelligence
 from models.container import get_intelligence_cache, get_results_repository
 import os
 import math
+import multiprocessing
 
 logger = logging.getLogger(__name__)
 
@@ -183,6 +184,13 @@ class AttackController:
 
       targeted_art = [atk.replace("_ART", "") for atk in selected_attacks_targeted if atk.endswith("_ART")]
       targeted_form = {**combined_params}
+      # O modo direcionado tem os seus próprios parâmetros, submetidos com o
+      # prefixo "tgt__" (ex.: tgt__fgm_eps). Aqui cada override substitui o
+      # <key> correspondente APENAS no form direcionado, deixando o não
+      # direcionado intacto — as duas configurações são independentes.
+      for _k, _v in request.form.to_dict().items():
+          if _k.startswith("tgt__"):
+              targeted_form[_k[len("tgt__"):]] = _v
       for atk in targeted_art:
           prefix = TARGETED_PREFIX.get(atk)
           if prefix:
@@ -219,7 +227,8 @@ class AttackController:
 
               yield f"event: status\ndata: {json.dumps({'message': 'Scheduling attack tasks'})}\n\n".encode()
 
-              with ProcessPoolExecutor(max_workers=6) as executor:
+              _spawn_ctx = multiprocessing.get_context("spawn")
+              with ProcessPoolExecutor(max_workers=6, mp_context=_spawn_ctx) as executor:
                   futures = {}
                   for t in tasks:
                       atk_type, atk_name, model_data, mode = t

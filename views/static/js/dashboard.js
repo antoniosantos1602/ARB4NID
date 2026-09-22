@@ -429,26 +429,27 @@
             type: 'bar',
             data: { labels: [], datasets: [] },
             options: {
+                indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: { labels: { color: '#ccc', font: { family: 'Inter', size: 11 } } },
                     tooltip: {
                         callbacks: {
-                            label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(5)}%`
+                            label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.x.toFixed(4)}%`
                         }
                     }
                 },
                 scales: {
                     x: {
-                        ticks: { color: '#ccc', font: { size: 10 }, maxRotation: 45, minRotation: 45 },
-                        grid: { color: '#1a1a2e' }
-                    },
-                    y: {
                         min: 0, max: 100,
                         ticks: { color: '#888', callback: v => v + '%' },
                         grid: { color: '#2a2a4a' },
                         title: { display: true, text: '% of successes', color: '#888', font: { size: 11 } }
+                    },
+                    y: {
+                        ticks: { color: '#ccc', font: { size: 10 } },
+                        grid: { color: '#1a1a2e' }
                     }
                 }
             }
@@ -695,15 +696,19 @@
 
         results.forEach((r, i) => {
             const rowColor = COLORS[i % COLORS.length];
-            const pp = (r.penalty_percentiles || {})[dim] || {};
+            const ppDim = (r.penalty_percentiles || {})[dim];
+            const hasRep = ppDim != null;
+            const pp = ppDim || {};
             const lbl = models.length > 1 ? r.attack_name : `${r.attack_name} — ${r.model_name}`;
 
+            const emptyCell = `<div style="padding:8px 6px;background:rgba(255,255,255,0.03);color:#666;text-align:center;font-size:0.78rem;font-weight:600;border-radius:4px;">–</div>`;
             const valueCell = (val) => {
+                if (!hasRep) return emptyCell;
                 const v = 1 - (val ?? 0);
                 const intensity = Math.min(v, 1);
                 const bg = hexWithAlpha(rowColor, 0.15 + intensity * 0.75);
                 const textColor = intensity > 0.5 ? '#0d0d0d' : '#e0e0e0';
-                return `<div style="padding:8px 6px;background:${bg};color:${textColor};text-align:center;font-size:0.78rem;font-weight:600;border-radius:4px;">${v.toFixed(4)}</div>`;
+                return `<div style="padding:8px 6px;background:${bg};color:${textColor};text-align:center;font-size:0.78rem;font-weight:600;border-radius:4px;">${(v * 100).toFixed(4)}%</div>`;
             };
 
             html += rowLabel(lbl);
@@ -749,9 +754,11 @@
             borderSkipped: false,
         }));
 
-        const minWidth = Math.max(500, labels.length * 130);
-        const canvas = document.getElementById('mahChart');
-        canvas.parentElement.style.width = minWidth + 'px';
+        const wrapper = document.getElementById('mah-chart-wrapper');
+        if (wrapper) {
+            wrapper.style.width = '100%';
+            wrapper.style.height = Math.max(320, labels.length * 46) + 'px';
+        }
 
         mahChart.data.labels = labels;
         mahChart.data.datasets = datasets;
@@ -810,7 +817,11 @@
 
         results.forEach((r, i) => {
             const rowColor = COLORS[i % COLORS.length];
+            const ppDim = (r.penalty_percentiles || {})[dim];
+            const hasRep = ppDim != null;
+            const emptyCell = `<div style="padding:8px 6px;background:rgba(255,255,255,0.03);color:#666;text-align:center;font-size:0.78rem;font-weight:600;border-radius:4px;">–</div>`;
             const valueCell = (frac) => {
+                if (!hasRep) return emptyCell;
                 const rep   = 1 - frac;
                 const pct   = rep * 100;
                 const count = nTotal > 0 ? (rep * nTotal) : 0;
@@ -819,10 +830,10 @@
                 const textColor = intensity > 0.5 ? '#0d0d0d' : '#e0e0e0';
                 const tooltip = nTotal > 0 ? `≈${count.toFixed(2)} of ${nTotal} features respected` : '';
                 return `<div title="${tooltip}" style="padding:8px 6px;background:${bg};color:${textColor};text-align:center;font-size:0.78rem;font-weight:600;border-radius:4px;cursor:default;">
-                    ${rep.toFixed(4)}
+                    ${pct.toFixed(4)}%
                 </div>`;
             };
-            const pp  = (r.penalty_percentiles || {})[dim] || {};
+            const pp  = ppDim || {};
             const lbl = models.length > 1 ? r.attack_name : `${r.attack_name} — ${r.model_name}`;
             html += rowLabel(lbl);
             html += valueCell(pp.p25  ?? 0);

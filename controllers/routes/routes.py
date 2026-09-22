@@ -53,6 +53,17 @@ def analyze_dataset():
         return jsonify({"error": str(e)}), 500
 
 
+@api_bp.route("/api/domain/mahalanobis-groups.csv", methods=["GET"])
+def download_mahalanobis_groups():
+    try:
+        csv_data = AnalysisController.mahalanobis_groups_csv()
+        buf = io.BytesIO(csv_data.encode("utf-8"))
+        return send_file(buf, mimetype="text/csv", as_attachment=True,
+                         download_name="mahalanobis_reference_groups.csv")
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @api_bp.route("/api/results/export-json", methods=["GET"])
 def export_results():
     try:

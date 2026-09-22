@@ -3,8 +3,6 @@
 
     function renderParam(param, mode) {
         const { key, label, type, default: def } = param;
-
-        // Target class: shown ONLY in the Targeted tab (default class 0)
         if (key.endsWith('_target_class')) {
             if (mode !== 'targeted') return '';
             return `
@@ -16,20 +14,17 @@
             </div>`;
         }
 
-        // Targeted flag is implied by the tab — never rendered
         if (key.endsWith('_targeted')) return '';
 
-        // In the Targeted tab, parameters are shared with the Untargeted tab,
-        // so only the target class is shown here (no duplicated inputs).
-        if (mode === 'targeted') return '';
-
         if (type === 'bool') return '';
+
+        const fieldName = mode === 'targeted' ? `tgt__${key}` : key;
 
         if (NORM_KEYS.has(key)) {
             return `
             <div class="mb-2">
                 <label class="form-label small">${label}</label>
-                <select class="form-select form-select-sm bg-dark text-white border-secondary" name="${key}">
+                <select class="form-select form-select-sm bg-dark text-white border-secondary" name="${fieldName}">
                     <option value="inf"${def === 'inf' ? ' selected' : ''}>L&#x221E; (inf)</option>
                     <option value="2"${def === 2 ? ' selected' : ''}>L2</option>
                     <option value="1"${def === 1 ? ' selected' : ''}>L1</option>
@@ -45,13 +40,12 @@
                 <label class="form-label small">${label}</label>
                 <input type="${inputType}"
                        class="form-control form-control-sm bg-transparent text-white border-secondary"
-                       name="${key}" value="${def}" step="${step}">
+                       name="${fieldName}" value="${def}" step="${step}">
             </div>`;
     }
 
     function renderAttackItem(attack, mode) {
         const supportsTargeted = attack.params.some(p => p.key.endsWith('_targeted'));
-        // Attacks that cannot be targeted (e.g., DeepFool) are hidden in the Targeted tab
         if (mode === 'targeted' && !supportsTargeted) return '';
 
         const sid = attack.id.replace(/[^a-zA-Z0-9]/g, '_') + '_' + mode;
@@ -105,8 +99,6 @@
         if (tgtContainer) {
             tgtContainer.innerHTML = artAttacks.map(a => renderAttackItem(a, 'targeted')).join('');
         }
-
-        // Re-apply param tooltips after dynamic elements are in the DOM
         if (typeof window._applyParamTooltips === 'function') {
             window._applyParamTooltips();
         }

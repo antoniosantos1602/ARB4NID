@@ -1,63 +1,3 @@
-//function toggleA2PMOptions() {
-//  const checked = document.querySelector('input[name="selected_attacks"]:checked');
-//  const attackType = checked ? checked.value : "";
-
-//  const options = {
-//      a2pm: document.getElementById("a2pm-params"),
-//      zoo: document.getElementById("zoo-options"),
-//      fgm: document.getElementById("fgm_options"),
-//      pgd: document.getElementById("pgd_options"),
-//      jsma: document.getElementById("jsma_params"),
-//      boundary: document.getElementById("boundary_params"),
-//      deepfool: document.getElementById("deepfool_options"),
-//      hopskipjump: document.getElementById("hopskipjump_options"),
-//      cw_l2: document.getElementById("params-c&w_l2"),
-//      cw_linf: document.getElementById("params-c&w_l2"),
-//      bim: document.getElementById("bim_options"),
-
-//  };
-
-//  Object.values(options).forEach(opt => {
-//      if (opt) opt.style.display = "none";
-//  });
-
-//  switch (attackType) {
-//      case "BIM":
-//        options.bim.style.display = "block";
-//        break;
-//      case "HopSkipJump":
- //       options.hopskipjump.style.display = "block";
-  //      break;
-   //   case "A2PM":
-    //      options.a2pm.style.display = "block";
-    //      break;
-//      case "ZOO":
-//          options.zoo.style.display = "block";
-//          break;
-//      case "FGM":
-//          options.fgm.style.display = "block";
-//          break;
-//      case "PGD":
-//          options.pgd.style.display = "block";
-//          break;
-//      case "JSMA_ART":
-//          options.jsma.style.display = "block";
- //         break;
-//      case "BoundaryAttack_ART":
-//          options.boundary.style.display = "block";
-//          break;
-//      case "DeepFool":
-//          options.deepfool.style.display = "block";
-//          break;
-//      case "C&W_L2":
-//          options.cw_l2.style.display = "block";
- //         break;
-//      case "C&W_LInf":
-//          options.cw_linf.style.display = "block";
-//          break;
-//  }
-//}
-
 function updateFileName(inputId, spanId) {
   const input = document.getElementById(inputId);
   const span = document.getElementById(spanId);
@@ -378,9 +318,9 @@ async function nextStep() {
             excDeps.forEach(dep => {
                 excList.innerHTML += `
                     <div class="d-flex align-items-center gap-2 mb-1 pb-1 border-bottom border-light">
-                        <span class="text-warning fw-bold small">${dep[0]}</span>
-                        <span class="text-danger fw-bold px-1">≠</span>
-                        <span class="text-warning fw-bold small">${dep[1]}</span>
+                        <span class="text-primary fw-bold small">${dep[0]}</span>
+                        <span class="text-muted mx-1">≠</span>
+                        <span class="text-dark small">${dep[1]}</span>
                     </div>`;
             });
 
@@ -390,9 +330,10 @@ async function nextStep() {
             linList.innerHTML = linDeps.length === 0 ? '<div class="text-muted small p-2 italic">No rules detected.</div>' : '';
             linDeps.forEach(dep => {
                 linList.innerHTML += `
-                    <div class="mb-2 pb-1 border-bottom border-light">
-                        <div class="text-info font-monospace fw-bold small">${dep[0]}</div>
-                        <div class="text-muted ps-3 small" style="font-size: 0.7rem;">Σ: ${dep[1].join(' + ')}</div>
+                    <div class="d-flex align-items-center gap-2 mb-1 pb-1 border-bottom border-light">
+                        <span class="text-primary fw-bold small">${dep[0]}</span>
+                        <span class="text-muted mx-1">=</span>
+                        <span class="text-dark small">${dep[1].join(' + ')}</span>
                     </div>`;
             });
             //classes

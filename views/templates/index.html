@@ -22,11 +22,9 @@
         <img src="/static/img/logo_.png" alt="RB4NID Logo" height="40" class="me-2">
         ARB4NID
       </a>
-      <!-- Botão mobile -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <!-- Links -->
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link text-light" href="#hero">Home</a></li>
@@ -38,7 +36,6 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <section id="hero" class="text-white text-center py-5" style="background-color: #0f0f0f;">
     <div class="container">
       <img src="/static/img/logo_.png" alt="RB4NID" class="mb-4" style="height: 100px;">
@@ -48,14 +45,13 @@
     </div>
   </section>
 
-  <section id="features" class="section-alt position-relative overflow-hidden text-center">
+  <section id="features" class="comparison-section position-relative overflow-hidden text-center">
   <div id="particles-features"></div>
 
   <div class="container position-relative" style="z-index: 1;">
     <h2 class="glow mb-5">Key Features</h2>
     <div id="featuresCarousel" class="carousel slide" data-bs-ride="false">
 
-      <!-- Indicators -->
       <div class="carousel-indicators" style="position:static;margin-bottom:2rem;">
         <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="0" class="active" aria-current="true" style="width:8px;height:8px;border-radius:50%;border:none;background:#2dd4bf;opacity:1;margin:0 4px;"></button>
         <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="1" style="width:8px;height:8px;border-radius:50%;border:none;background:#444;opacity:1;margin:0 4px;"></button>
@@ -63,7 +59,6 @@
 
       <div class="carousel-inner">
 
-        <!-- SLIDE 1: Tool Usage + Multiple Attacks texto -->
         <div class="carousel-item active">
           <div class="feature-horizontal mb-4">
             <div class="feature-icon"><i class="bi bi-graph-up-arrow"></i></div>
@@ -80,7 +75,7 @@
               <h5>Multiple Attacks</h5>
               <p class="text-lightblue">Attacks are categorized by the attacker’s level of knowledge about the target model:</p>
               <ul class="text-lightblue" style="padding-left:1.25rem;line-height:2;">
-                <li><strong>White-Box</strong> — full access to the model’s internals; uses gradient calculations to craft precise perturbations. Only applicable to differentiable models (e.g. neural networks).</li>
+                <li><strong>White-Box</strong> — full access to the model’s internals; uses gradient calculations to craft precise perturbations. Only applicable to differentiable models</li>
                 <li><strong>Gray-Box</strong> — partial knowledge of the model; may leverage architecture details without full gradient access.</li>
                 <li><strong>Black-Box</strong> — no access to model internals; relies solely on input-output queries, making it applicable to any model type.</li>
               </ul>
@@ -93,7 +88,6 @@
           </div>
         </div>
 
-        <!-- SLIDE 2: Tabela de ataques -->
         <div class="carousel-item">
           <div class="feature-horizontal">
             <div class="feature-icon"><i class="bi bi-shield-lock"></i></div>
@@ -104,7 +98,7 @@
                   <thead>
                     <tr style="font-family:’Orbitron’,sans-serif;font-size:0.82rem;">
                       <th style="background:#111;color:#fff;border-color:#2a2a4a;text-align:left;">Attack Method</th>
-                      <th style="background:#111;color:#fff;border-color:#2a2a4a;">Category</th>
+                      <th style="background:#111;color:#fff;border-color:#2a2a4a;">Knowledge</th>
                       <th style="background:#111;color:#fff;border-color:#2a2a4a;">Objective</th>
                     </tr>
                   </thead>
@@ -146,98 +140,7 @@
     <div id="particles-comparison"></div>
     <div class="container">
 
-          <!--
-      <h2 class="glow-title glow-heading mb-5">Tool Overview & Comparison</h2>
-
-      <div id="toolsOverviewCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-        <div class="carousel-inner">
-
-          <div class="carousel-item active">
-            <div class="row justify-content-center">
-              <div class="col-md-4 mb-4">
-                <div class="p-4 bg-black rounded shadow-lg h-100 border border-secondary tool-card transition">
-                  <img src="/static/img/art_lfai.webp" class="mb-3" style="height: 50px;">
-                  <h5 class="text-white">Adversarial Robustness Toolbox</h5>
-                </div>
-              </div>
-
-              <div class="col-md-4 mb-4">
-                <div class="p-4 bg-black rounded shadow-lg h-100 border border-secondary tool-card transition">
-                  <img src="/static/img/foolbox.png" class="mb-3" style="height: 50px;">
-                  <h5 class="text-white">Foolbox</h5>
-                </div>
-              </div>
-
-              <div class="col-md-4 mb-4">
-                <div class="p-4 bg-black rounded shadow-lg h-100 border border-secondary tool-card transition">
-                  <h5 class="text-white">Adaptative Perturbation Pattern Method
-
-</h5>
-                  <p class="text-lightblue small">
-                    A2PM is a gray-box approach for generating realistic adversarial examples in network intrusion detection systems.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
--->
-          <!--
-          <div class="carousel-item">
-              <div class="table-wrapper table-responsive">
-                <table id="main-table" class="table table-bordered table-glass table-transparent">
-                    <thead>
-                  <tr>
-                    <th>Libraries / Attacks</th>
-                    <th>ART</th>
-                    <th>FoolBox</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td>TensorFlow</td><td>✔</td><td>✔</td></tr>
-                  <tr><td>PyTorch</td><td>✔</td><td>✔</td></tr>
-                  <tr><td>Keras</td><td>✔</td><td>✔</td></tr>
-                  <tr><td>FGM / FGSM</td><td>✔</td><td>✔</td></tr>
-                  <tr><td>JSMA</td><td>✔</td><td></td></tr>
-                  <tr><td>ZOO</td><td>✔</td><td></td></tr>
-                  <tr><td>C&W</td><td>✔</td><td>✔</td></tr>
-                  <tr><td>PGD</td><td>✔</td><td>✔</td></tr>
-                  <tr><td>DeepFool</td><td>✔</td><td>✔</td></tr>
-                  <tr><td>Boundary Attack</td><td>✔</td><td>✔</td></tr>
-                  <tr><td>BIM</td><td>✔</td><td>✔</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center mt-4">
-          <div class="carousel-indicators justify-content-center">
-            <button type="button" data-bs-target="#toolsOverviewCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#toolsOverviewCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          </div>
-        </div>
-      </div>
-      -->
-
       <div class="row g-5 feature-row text-start">
-
-        <!-- Robustness Evaluation -->
-        <div class="col-12">
-          <div class="feature-horizontal">
-            <div class="feature-icon">
-              <i class="bi bi-speedometer"></i>
-            </div>
-            <div class="feature-content">
-              <h5>Robustness Evaluation</h5>
-              <p class="text-lightblue">
-                Most adversarial methods generate perturbations without considering the domain constraints inherent to tabular data, such as network traffic. This process can produce adversarial examples with unrealistic or invalid values, making the attacks less credible in real-world scenarios.
-              </p>
-              <p class="text-lightblue" style="margin-top:0.75rem;">
-                To address this, ARB4NID introduces a robustness evaluation driven by attack reputation — an indicator that measures to what extent the generated adversarial examples respect the data domain, distinguishing attacks that are technically successful from those that are both effective and realistic.
-              </p>
-            </div>
-          </div>
-        </div>
 
         <!-- Adversarial Metrics -->
         <div class="col-12">
@@ -257,17 +160,58 @@
           </div>
         </div>
 
-        <!-- Model Robustness -->
         <div class="col-12">
           <div class="feature-horizontal">
             <div class="feature-icon">
-              <i class="bi bi-shield-check"></i>
+              <i class="bi bi-speedometer"></i>
             </div>
             <div class="feature-content">
-              <h5>Model Robustness</h5>
-              <p class="text-lightblue">
-                Results are aggregated across all executed attacks to produce a global robustness score per model. The dashboard highlights the average RAA and the worst-case scenario, enabling direct comparison between models and identification of the most vulnerable configurations.
+              <h5>Robustness Evaluation</h5>
+
+              <div class="row g-4 align-items-start">
+                <div class="col-lg-7">
+                  <p class="text-lightblue">
+                    ARB4NID measures model robustness through the <strong>Realistic Adversarial Accuracy (RAA)</strong>, an accuracy-based metric that reflects the proportion of correctly classified samples a model preserves when exposed to adversarial examples that are both successful and realistic. Higher RAA values correspond to higher robustness.
+                  </p>
+                  <p class="text-lightblue" style="margin-top:0.75rem;">
+                    Because an attacker only needs one effective strategy while a defender must resist them all, robustness is characterized jointly through two complementary indicators:
+                  </p>
+                  <ul class="text-lightblue" style="padding-left:1.25rem;line-height:2;margin-bottom:0;">
+                    <li><strong>RAA Mean</strong> — the average RAA across all evaluated attacks, providing an overall view of the model's behaviour.</li>
+                    <li><strong>RAA Min</strong> — the lowest RAA among the evaluated attacks, identifying the worst-case attack and exposing specific weaknesses that the average alone may hide.</li>
+                  </ul>
+                </div>
+
+                <div class="col-lg-5">
+                  <p class="text-lightblue mb-2">Each attack's RAA is mapped to a robustness level:</p>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-attacks text-center align-middle mb-0" style="color:#e5e5e5;border-color:#2a2a4a;font-size:0.82rem;">
+                      <thead>
+                        <tr>
+                          <th style="background:#111;color:#fff;border-color:#2a2a4a;">RAA (%)</th>
+                          <th style="background:#111;color:#fff;border-color:#2a2a4a;">Robustness Level</th>
+                        </tr>
+                      </thead>
+                      <tbody style="font-weight:600;color:#fff;">
+                        <tr><td style="color:#fff;border-color:#2a2a4a;">90 – 100</td><td style="color:#fff;border-color:#2a2a4a;">Very High</td></tr>
+                        <tr><td style="color:#fff;border-color:#2a2a4a;">70 – 90</td><td style="color:#fff;border-color:#2a2a4a;">High</td></tr>
+                        <tr><td style="color:#fff;border-color:#2a2a4a;">50 – 70</td><td style="color:#fff;border-color:#2a2a4a;">Moderate</td></tr>
+                        <tr><td style="color:#fff;border-color:#2a2a4a;">&lt; 50</td><td style="color:#fff;border-color:#2a2a4a;">Low</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-lightblue" style="margin-top:1.25rem;">
+                By combining <strong>RAA Mean</strong> and <strong>RAA Min</strong>, ARB4NID classifies each model into one of four robustness profiles — using <strong>70%</strong> (the Moderate&rarr;High boundary) as the reference for the mean and <strong>50%</strong> (the Low&rarr;Moderate boundary) for the minimum:
               </p>
+              <div class="row g-3 text-lightblue" style="line-height:1.7;">
+                <div class="col-md-6"><strong>Highly Robust</strong> — <em>Mean &ge; 70% and Min &ge; 50%</em>: consistently robust across all attacks, with no critical weakness under any specific method.</div>
+                <div class="col-md-6"><strong>Robust but Vulnerable</strong> — <em>Mean &ge; 70% but Min &lt; 50%</em>: strong on average, but a specific attack drives its robustness down to a low level.</div>
+                <div class="col-md-6"><strong>Moderately Robust</strong> — <em>Mean &lt; 70% but Min &ge; 50%</em>: no critical weakness, yet with clear room for improvement across all attacks.</div>
+                <div class="col-md-6"><strong>Low Robustness</strong> — <em>Mean &lt; 70% and Min &lt; 50%</em>: limited overall and significantly affected by at least one attack strategy.</div>
+              </div>
             </div>
           </div>
         </div>
@@ -277,8 +221,8 @@
     </div>
   </section>
 
-  <section id="About" class="section-alt text-center position-relative">
-    <div class="a2pm-image"></div>
+  <section id="About" class="comparison-section text-center position-relative">
+    <div id="particles-about"></div>
 
     <div class="container position-relative" style="z-index: 1;">
       <div class="text-center mt-4">

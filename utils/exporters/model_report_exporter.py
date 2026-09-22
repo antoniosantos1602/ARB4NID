@@ -1,10 +1,16 @@
 import io
+import re
 import zipfile
 
 import numpy as np
 
 from models.data.feature_utils import get_binary_columns, get_integer_columns
 from utils.export_utils import AdversarialExporter
+
+
+def _anchor(name):
+    """Slug estável para âncoras de hiperligação a partir do nome do ataque."""
+    return "attack-" + re.sub(r'[^a-z0-9]+', '-', str(name).lower()).strip('-')
 
 
 def generate_model_zip(results_list, zip_buffer):
@@ -32,8 +38,12 @@ def generate_model_zip(results_list, zip_buffer):
         adv_acc   = _f(res.get('adversarial_accuracy', 0))
         ars       = _f(float(res.get('wasr_v2', 0) or 0) * 100)
         raa       = _f(res.get('realistic_adversarial_accuracy', 0))
-        lines.append(f"| **{atk}** | {clean_acc}% | {exec_time}s | {asr}% | {adv_acc}% | {ars}% | {raa}% |")
+        # Nome do ataque como hiperligação para a sua secção detalhada abaixo.
+        atk_link  = f"[**{atk}**](#{_anchor(atk)})"
+        lines.append(f"| {atk_link} | {clean_acc}% | {exec_time}s | {asr}% | {adv_acc}% | {ars}% | {raa}% |")
     lines.append("")
+    # Ligação para a conclusão geral, que aparece no fim do relatório.
+    lines += ["➡ See the [**Overall Robustness Assessment**](#overall-robustness-assessment) at the end of this report.\n"]
 
     all_images = {}
 
@@ -68,7 +78,9 @@ def generate_model_zip(results_list, zip_buffer):
 
         lines += [
             "---\n",
+            f'<a id="{_anchor(attack_name)}"></a>',
             f"## Attack: {attack_name}\n",
+            "[↑ Back to summary](#executive-summary)\n",
             "| Field | Value |",
             "|---|---|",
             f"| **Execution Time** | {exec_time}s |",
@@ -280,6 +292,35 @@ def generate_model_zip(results_list, zip_buffer):
                 buf = io.BytesIO()
                 if exporter._plot_radar_n0(cols, f"N0 — {p_type.capitalize()} Feature Perturbation", buf):
                     all_images[f"{img_dir}/n0_radar_{p_type}.png"] = buf.getvalue()
+
+    # --- Overall Robustness Assessment (no FIM, depois de todos os ataques) ---
+    # Cruza o RAA médio (comportamento geral) com o RAA mínimo (pior caso)
+    # para classificar o modelo segundo os 4 níveis definidos na dissertação.
+    raa_pairs = [(res.get('attack_name', '?'), _f(res.get('realistic_adversarial_accuracy', 0)))
+                 for res in results_list]
+    if raa_pairs:
+        raas = [v for _, v in raa_pairs]
+        mean_raa = round(sum(raas) / len(raas), 5)
+        worst_name, min_raa = min(raa_pairs, key=lambda x: x[1])
+
+        if mean_raa >= 70 and min_raa >= 50:
+            level = "Highly Robust"
+        elif mean_raa >= 70 and min_raa < 50:
+            level = "Robust but Vulnerable"
+        elif mean_raa < 70 and min_raa >= 50:
+            level = "Moderately Robust"
+        else:
+            level = "Low Robustness"
+
+        lines += [
+            "---\n",
+            "## Overall Robustness Assessment\n",
+            f"Across the {len(raas)} evaluated attack configurations, the model achieved an "
+            f"average RAA of {mean_raa}% and a minimum RAA of {min_raa}%, the latter observed "
+            f"under the {worst_name} attack. Based on the combination of these two indicators, "
+            f"the model is classified as **{level}**.\n",
+            "[↑ Back to summary](#executive-summary)\n",
+        ]
 
     with zipfile.ZipFile(zip_buffer, "w") as zf:
         zf.writestr("REPORT.md", "\n".join(lines))

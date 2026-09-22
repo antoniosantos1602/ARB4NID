@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <script src="/static/scripts.js?v=20260913c"></script>
+    <script src="/static/scripts.js?v=20260922"></script>
     <link rel="stylesheet" href="/static/css/base.css">
     <link rel="stylesheet" href="/static/css/forms.css">
     <link rel="stylesheet" href="/static/css/results.css">
@@ -348,27 +348,21 @@
             </div>
         </div>
 
-        <!-- ========== DASHBOARD SECTION ========== -->
         <div id="dashboard-section" style="display: none;" class="mt-4">
 
-            <!-- Header -->
             <div style="position:relative;display:flex;align-items:center;margin-bottom:1rem;padding:0 20px;">
                 <button type="button" class="btn btn-sm btn-outline-light" onclick="showResults()">← Back</button>
                 <h2 class="section-title m-0" style="position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;">Robustness Dashboard</h2>
             </div>
 
-            <!-- Global model filter pills -->
             <div id="dash-model-pills" class="d-flex flex-wrap gap-2 mb-3"></div>
 
             <hr class="border-secondary opacity-25 mb-3">
 
-            <!-- ROW 1: Clean Accuracy (col-3) | ASR vs Adv. Accuracy (col-5) | Execution Time (col-4) -->
             <div class="row g-3 align-items-stretch mb-4">
 
-                <!-- Left column: Clean Acc + RAA + Worst-Case -->
                 <div class="col-xl-3 col-lg-3 d-flex flex-column gap-3">
 
-                    <!-- Clean Accuracy -->
                     <div>
                         <p class="section-title mb-2" style="font-size:0.7rem;">Clean Accuracy</p>
                         <div id="dash-clean-acc" style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;display:flex;align-items:center;justify-content:center;text-align:center;">
@@ -376,17 +370,15 @@
                         </div>
                     </div>
 
-                    <!-- Robustness Score (RAA) -->
                     <div>
-                        <p class="section-title mb-2" style="font-size:0.7rem;">Robustness Score</p>
+                        <p class="section-title mb-2" style="font-size:0.7rem;">RAA Mean</p>
                         <div id="dash-raa" style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;display:flex;align-items:center;justify-content:center;text-align:center;">
                             <div class="text-muted" style="font-size:0.8rem;">Waiting for results...</div>
                         </div>
                     </div>
 
-                    <!-- Worst-Case Robustness -->
                     <div>
-                        <p class="section-title mb-2" style="font-size:0.7rem;">Worst-Case Robustness</p>
+                        <p class="section-title mb-2" style="font-size:0.7rem;">RAA Min</p>
                         <div id="dash-worst-case" style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;display:flex;align-items:center;justify-content:center;text-align:center;">
                             <div class="text-muted" style="font-size:0.8rem;">Waiting for results...</div>
                         </div>
@@ -394,7 +386,6 @@
 
                 </div>
 
-                <!-- ASR vs Adversarial Accuracy -->
                 <div class="col-xl-5 col-lg-5">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <p class="section-title m-0" style="font-size:0.7rem;">Robustness Evaluation</p>
@@ -424,25 +415,6 @@
 
             </div>
 
-            <!-- ROW 2: N₀–N₄ Heatmap (col-6) | Constraint Breach Rate (col-6) -->
-            <div class="row g-3 align-items-start mb-4">
-                <div class="col-lg-6">
-                    <p class="section-title mb-2" style="font-size:0.7rem;">N₀–N₄ Distribution per Attack <small style="text-transform:none;font-size:0.68rem;letter-spacing:0;color:#888;">— constraints violated</small></p>
-                    <div style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;">
-                        <div id="nk-model-pills" class="d-flex flex-wrap gap-2 mb-2" style="display:none;"></div>
-                        <div id="nk-heatmap" style="overflow-x:auto;"></div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <p class="section-title mb-2" style="font-size:0.7rem;">Constraint Breach Rate per Attack <small style="text-transform:none;font-size:0.68rem;letter-spacing:0;color:#888;">— by type</small></p>
-                    <div style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;">
-                        <div id="cbr-model-pills" class="d-flex flex-wrap gap-2 mb-2" style="display:none;"></div>
-                        <div id="cbr-heatmap" style="overflow-x:auto;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ROW 3: Binary Reputation Table (col-6) | Integer Reputation Table (col-6) -->
             <div class="row g-3 align-items-start mb-4">
                 <div class="col-lg-6">
                     <p class="section-title mb-2" style="font-size:0.7rem;">Binary Reputation per Attack <small style="text-transform:none;font-size:0.68rem;letter-spacing:0;color:#888;">— fraction of binary features respected (p25 / median / mean / p75)</small></p>
@@ -484,6 +456,23 @@
                 </div>
             </div>
 
+            <div class="row g-3 align-items-start mb-5">
+                <div class="col-lg-6">
+                    <p class="section-title mb-2" style="font-size:0.7rem;">N₀–N₄ Distribution per Attack <small style="text-transform:none;font-size:0.68rem;letter-spacing:0;color:#888;"></small></p>
+                    <div style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;">
+                        <div id="nk-model-pills" class="d-flex flex-wrap gap-2 mb-2" style="display:none;"></div>
+                        <div id="nk-heatmap" style="overflow-x:auto;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="section-title mb-2" style="font-size:0.7rem;">Constraint Breach Rate per Attack <small style="text-transform:none;font-size:0.68rem;letter-spacing:0;color:#888;">— by type</small></p>
+                    <div style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;">
+                        <div id="cbr-model-pills" class="d-flex flex-wrap gap-2 mb-2" style="display:none;"></div>
+                        <div id="cbr-heatmap" style="overflow-x:auto;"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -496,12 +485,12 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="/static/js/particles.init.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="/static/js/dashboard.js"></script>
+    <script src="/static/js/dashboard.js?v=20260922b"></script>
 
     <script src="/static/js/attack.tooltips.js"></script>
 
     <script src="/static/js/menu.init.js"></script>
-    <script src="/static/js/attack.catalog.js"></script>
+    <script src="/static/js/attack.catalog.js?v=20260922"></script>
     <script src="/static/js/results.stream.js?v=20260913c"></script>
     <script src="/static/js/results.modal.js"></script>
     <script src="/static/js/results.actions.js"></script>
@@ -528,13 +517,13 @@
             <div class="modal-content text-dark">
                 <div class="modal-header border-bottom-0">
                     <h5 class="modal-title" id="domainIntelligenceModalLabel">
-                        <i class="bi bi-cpu-fill text-primary"></i> Domain Intelligence (Δ₀)
+                        Domain Constraints
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
-                    <p class="text-muted small mb-4">Propriedades de domínio inferidas estatisticamente a partir do dataset.</p>
+                    <p class="text-muted small mb-4">Domain properties statistically inferred from the dataset.</p>
 
                     <div class="list-group list-group-flush bg-transparent gap-3">
 
@@ -542,9 +531,9 @@
                             <button class="list-group-item list-group-item-action bg-transparent d-flex align-items-center justify-content-between py-3"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#collapseBinary">
                                 <div class="d-flex align-items-center">
-                                    <i class="bi bi-0-square-fill text-primary fs-5 me-3"></i>
+
                                     <div class="text-start">
-                                        <div class="fw-bold small">Binary Domain Constraints</div>
+                                        <div class="fw-bold small">Binary Features</div>
                                         <div class="text-muted" style="font-size: 0.65rem;">Features restricted to boolean values {0, 1}</div>
                                     </div>
                                 </div>
@@ -552,7 +541,6 @@
                             </button>
                             <div class="collapse" id="collapseBinary">
                                 <div class="p-3 border-top">
-                                    <p class="small text-muted mb-3">Variáveis identificadas como binárias (booleanas).</p>
                                     <div id="modal-bin-list" class="d-flex flex-wrap gap-2 overflow-auto" style="max-height: 120px;"></div>
                                 </div>
                             </div>
@@ -562,17 +550,16 @@
                             <button class="list-group-item list-group-item-action bg-transparent d-flex align-items-center justify-content-between py-3"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#collapseInteger">
                                 <div class="d-flex align-items-center">
-                                    <i class="bi bi-hash text-primary fs-5 me-3"></i>
+
                                     <div class="text-start">
-                                        <div class="fw-bold small"> Integer Constraints</div>
-                                        <div class="text-muted" style="font-size: 0.65rem;">Numerical features that must maintain integer precision</div>
+                                        <div class="fw-bold small"> Integer Features</div>
+                                        <div class="text-muted" style="font-size: 0.65rem;">Integer features that must maintain integer precision</div>
                                     </div>
                                 </div>
                                 <span class="badge rounded-pill bg-primary shadow-sm" id="modal-int-count">0</span>
                             </button>
                             <div class="collapse" id="collapseInteger">
                                 <div class="p-3 border-top">
-                                    <p class="small text-muted mb-3">Features numéricas mapeadas como discretas.</p>
                                     <div id="modal-int-list" class="d-flex flex-wrap gap-2 overflow-auto" style="max-height: 120px;"></div>
                                 </div>
                             </div>
@@ -582,13 +569,13 @@
                             <button class="list-group-item list-group-item-action bg-transparent d-flex align-items-center justify-content-between py-3"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#collapseLogic">
                                 <div class="d-flex align-items-center">
-                                    <i class="bi bi-diagram-3-fill text-info fs-5 me-3"></i>
+
                                     <div class="text-start">
-                                        <div class="fw-bold small">Logic Constraints Detected</div>
-                                        <div class="text-muted" style="font-size: 0.65rem;">Unidirectional, Mutual Exclusivity and Linear Relations</div>
+                                        <div class="fw-bold small">Dependencies</div>
+                                        <div class="text-muted" style="font-size: 0.65rem;">Unidirectional, Mutual Exclusivity and Linear Dependencies</div>
                                     </div>
                                 </div>
-                                <i class="bi bi-chevron-down text-muted small"></i>
+
                             </button>
                             <div class="collapse" id="collapseLogic">
                                 <div class="p-3 border-top bg-light">
@@ -596,8 +583,8 @@
                                     <div class="mb-2 border rounded bg-white shadow-sm">
                                         <button class="btn btn-link text-decoration-none w-100 d-flex justify-content-between align-items-center py-2"
                                                 type="button" data-bs-toggle="collapse" data-bs-target="#subCollapseUni">
-                                            <span class="small fw-bold text-dark"><i class="bi bi-arrow-right-short text-primary me-2"></i>Unidirectional</span>
-                                            <i class="bi bi-plus-circle text-primary small"></i>
+                                            <span class="small fw-bold text-dark">Unidirectional</span>
+
                                         </button>
                                         <div class="collapse" id="subCollapseUni">
                                             <div id="list-unidirecional" class="p-2 border-top overflow-auto" style="max-height: 150px;"></div>
@@ -607,8 +594,8 @@
                                     <div class="mb-2 border rounded bg-white shadow-sm">
                                         <button class="btn btn-link text-decoration-none w-100 d-flex justify-content-between align-items-center py-2"
                                                 type="button" data-bs-toggle="collapse" data-bs-target="#subCollapseExc">
-                                            <span class="small fw-bold text-dark"><i class="bi bi-x-circle text-warning me-2"></i>Mutual Exclusivity</span>
-                                            <i class="bi bi-plus-circle text-warning small"></i>
+                                            <span class="small fw-bold text-dark">Mutual Exclusivity</span>
+
                                         </button>
                                         <div class="collapse" id="subCollapseExc">
                                             <div id="list-exclusividade" class="p-2 border-top overflow-auto" style="max-height: 150px;"></div>
@@ -618,8 +605,8 @@
                                     <div class="border rounded bg-white shadow-sm">
                                         <button class="btn btn-link text-decoration-none w-100 d-flex justify-content-between align-items-center py-2"
                                                 type="button" data-bs-toggle="collapse" data-bs-target="#subCollapseLin">
-                                            <span class="small fw-bold text-dark"><i class="bi bi-plus-slash-minus text-info me-2"></i>Linear Relations</span>
-                                            <i class="bi bi-plus-circle text-info small"></i>
+                                            <span class="small fw-bold text-dark">Linear Dependencies</span>
+
                                         </button>
                                         <div class="collapse" id="subCollapseLin">
                                             <div id="list-linear" class="p-2 border-top overflow-auto" style="max-height: 150px;"></div>
@@ -634,20 +621,21 @@
                             <button class="list-group-item list-group-item-action bg-transparent d-flex align-items-center justify-content-between py-3"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#collapseMahalanobis">
                                 <div class="d-flex align-items-center">
-                                    <i class="bi bi-shield-shaded text-info fs-5 me-3"></i>
+
                                     <div class="text-start">
-                                        <div class="fw-bold small">Statistical Validation (Mahalanobis)</div>
-                                        <div class="text-muted" style="font-size: 0.65rem;">Multivariate distribution check (Percentile 99.5)</div>
+                                        <div class="fw-bold small">Statistical Coherence (Mahalanobis)</div>
+                                        <div class="text-muted" style="font-size: 0.65rem;">Multivariate distribution check</div>
                                     </div>
                                 </div>
-                                <i class="bi bi-chevron-down text-muted small"></i>
+
                             </button>
                             <div class="collapse" id="collapseMahalanobis">
                                 <div class="p-3 border-top">
-                                    <div class="p-3 bg-light text-dark rounded border shadow-sm small" style="line-height: 1.6; text-align: justify; max-height: 250px; overflow-y: auto;">
-                                        Para garantir que os ataques gerados são realistas e operacionais, o ARB4NID submete cada amostra adversa a um processo de validação baseado na Distância de Mahalanobis, uma métrica multivariada que avalia se a perturbação introduzida preserva as correlações naturais entre as variáveis contínuas do dataset. O realismo é definido através do percentil 99.5 dos dados originais, o que implica que o sistema calcula a distância de Mahalanobis para todos os exemplos reais do conjunto de dados inicial. Qualquer amostra adversa que ultrapasse este limite é considerada um outlier estatístico e, consequentemente, um exemplo irrealista para o domínio de rede.
-
-Esta distribuição é calculada dinamicamente de acordo com o grupo binário ativo e a classe adversarial prevista pelo modelo, existindo várias distribuições baseadas na distância dos dados originais em relação à média de cada grupo. Uma vez que os ataques frequentemente quebram as relações das variáveis binárias originais, o cálculo para estas amostras foca-se exclusivamente na distribuição da classe que o modelo previu no momento do ataque. A integridade desta análise é garantida mesmo em condições de baixa densidade de dados através de um Ajuste por Volume: se um grupo específico for demasiado pequeno para permitir um cálculo de covariância estável, o ARB4NID transita automaticamente para uma análise global, assegurando a fiabilidade estatística do processo.
+                                    <div class="mt-3">
+                                        <button type="button" class="btn btn-sm btn-outline-info"
+                                                onclick="window.triggerDownload('/api/domain/mahalanobis-groups.csv')">
+                                            Download reference groups &amp; thresholds (CSV)
+                                        </button>
                                     </div>
                                 </div>
                             </div>
