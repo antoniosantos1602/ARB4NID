@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
+import os
 import warnings
 
 from controllers.routes.routes import api_bp
@@ -10,7 +11,7 @@ from models.container import register_services
 warnings.simplefilter("always", category=FutureWarning)
 
 app = Flask(__name__, template_folder='views/templates', static_folder='views/static')
-app.secret_key = 'supersecretkey'
+app.secret_key = os.environ.get('SECRET_KEY', 'supersecretkey')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 app.register_blueprint(views_bp)

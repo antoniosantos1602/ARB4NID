@@ -65,6 +65,115 @@ pip install -r requirements.txt
 python app.py
 ```
 
+---
+
+## Running with Docker
+
+As an alternative to the local setup above, ARB4NID can run in a Docker container (Linux, CPU only). The container uses its own dependency list, [`requirements-docker.txt`](requirements-docker.txt). The `requirements.txt` file is only for the local macOS setup and is not used by Docker.
+
+### Requirements
+
+- **Docker** ([docs.docker.com/get-docker](https://docs.docker.com/get-docker/)): Docker Desktop on macOS/Windows, Docker Engine on Linux.
+- About **8 GB of free disk space**. The image is about 2.6 GB, because it includes PyTorch and TensorFlow.
+- **At least 4 GB of RAM** for the container. The application uses about 700 MB when idle, and each attack process loads PyTorch and TensorFlow again (about 1 GB each).
+
+### 1. Build the image
+
+From the project root:
+
+```bash
+docker build --platform linux/amd64 -t arb4nid:local .
+```
+
+The first build takes several minutes because it downloads PyTorch and TensorFlow. Later builds reuse the cached layers and are much faster, as long as `requirements-docker.txt` does not change.
+
+> **Apple Silicon (M1/M2/M3):** keep `--platform linux/amd64`. This builds the same image that runs on x64 cloud VMs. On a Mac it runs through emulation, so it is slower than on a Linux server.
+
+### 2. Run the container
+
+```bash
+docker run -d --name arb4nid \
+  -p 8000:8000 \
+  -e SECRET_KEY="change-me" \
+  -e ARB4NID_MAX_WORKERS=2 \
+  -v arb4nid-uploads:/app/uploads \
+  --restart unless-stopped \
+  arb4nid:local
+```
+
+Open **http://localhost:8000**. The application takes about 30 seconds to start.
+
+| Option | Purpose |
+|:---|:---|
+| `-p 8000:8000` | Exposes the application on port 8000 (`host:container`). |
+| `-e SECRET_KEY=...` | Flask secret key. Always set it to a random value outside your own machine (e.g. `openssl rand -hex 32`). |
+| `-e ARB4NID_MAX_WORKERS=2` | Number of parallel attack processes (default `6`). Lower it on machines with little RAM: allow about 1 GB per process. |
+| `-v arb4nid-uploads:/app/uploads` | Keeps uploaded datasets and models in a Docker volume, so they survive container restarts and updates. |
+| `--restart unless-stopped` | Starts the container again after a crash or a reboot of the machine. |
+
+### 3. Check that it is running
+
+```bash
+curl http://localhost:8000/health
+```
+
+The response should be `{"status":"ok"}`. Docker uses the same endpoint for its built-in health check: `docker ps` shows the container as `healthy` once it is ready.
+
+### Useful commands
+
+```bash
+docker logs -f arb4nid          # follow the logs
+docker stats arb4nid            # CPU / memory usage
+docker stop arb4nid             # stop
+docker start arb4nid            # start again
+docker rm -f arb4nid            # remove the container (the uploads volume is kept)
+docker volume rm arb4nid-uploads  # also delete the uploaded files
+```
+
+### Update to a new version
+
+```bash
+git pull
+docker build --platform linux/amd64 -t arb4nid:local .
+docker rm -f arb4nid
+# then run the "docker run" command from step 2 again
+```
+
+### Run the tests and lint inside the image
+
+The tests are not copied into the image, so they are mounted when the container starts:
+
+```bash
+docker run --rm --platform linux/amd64 \
+  -v "$PWD/tests:/app/tests:ro" \
+  -v "$PWD/pytest.ini:/app/pytest.ini:ro" \
+  arb4nid:local \
+  sh -c "pip install --user -q pytest pytest-flask && python -m pytest -q -p no:cacheprovider"
+
+docker run --rm -v "$PWD:/src:ro" -w /src ghcr.io/astral-sh/ruff:0.8.6 check --no-cache .
+```
+
+### Use an image from Azure Container Registry
+
+If the image has already been pushed to a registry (e.g. `arb4nid.azurecr.io`), you can pull it there instead of building it:
+
+```bash
+az login
+az acr login --name arb4nid
+
+docker pull arb4nid.azurecr.io/arb4nid:<tag>
+```
+
+Then use the `docker run` command from step 2, replacing `arb4nid:local` with `arb4nid.azurecr.io/arb4nid:<tag>`.
+
+### How the image is built
+
+- Base image: `python:3.11-slim-bookworm`, pinned by digest.
+- PyTorch CPU wheels (no CUDA) and `tensorflow-cpu` / `xgboost-cpu`, which keep the image much smaller.
+- The application is served by **gunicorn** with 1 worker and 4 threads. Results are kept in memory, inside one process, so only one worker is used.
+- The container runs as a non-root user (`app`, uid 10001).
+- `uploads/`, `*.joblib`, `*.csv`, `tests/`, `docs/` and `.git` are excluded from the image (see [`.dockerignore`](.dockerignore)).
+
 ## Screenshots
 
 | Dataset & Model Selection | Attack Configuration | Results Dashboard |

@@ -18,6 +18,8 @@ import multiprocessing
 
 logger = logging.getLogger(__name__)
 
+MAX_WORKERS = int(os.environ.get("ARB4NID_MAX_WORKERS", "6"))
+
 
 def _json_safe(obj):
     if isinstance(obj, float) or isinstance(obj, np.floating):
@@ -228,7 +230,7 @@ class AttackController:
               yield f"event: status\ndata: {json.dumps({'message': 'Scheduling attack tasks'})}\n\n".encode()
 
               _spawn_ctx = multiprocessing.get_context("spawn")
-              with ProcessPoolExecutor(max_workers=6, mp_context=_spawn_ctx) as executor:
+              with ProcessPoolExecutor(max_workers=MAX_WORKERS, mp_context=_spawn_ctx) as executor:
                   futures = {}
                   for t in tasks:
                       atk_type, atk_name, model_data, mode = t
