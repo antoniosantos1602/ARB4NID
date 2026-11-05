@@ -639,20 +639,24 @@
 
     function renderMahModelPills() {
         const models = [...new Set(getResults().map(r => r.model_name))];
-        const wrapper = document.getElementById('mah-model-pills');
+        // Zonas e Reputacao de Mahalanobis estao agora em cartoes separados: cada um
+        // leva as suas pills, ambas ligadas ao mesmo setMahModel para ficarem em sync.
+        const wrappers = ['mah-model-pills', 'mahpen-model-pills']
+            .map(id => document.getElementById(id))
+            .filter(Boolean);
+        if (!wrappers.length) return;
 
         if (models.length <= 1) {
-            wrapper.style.display = 'none';
+            wrappers.forEach(w => { w.style.display = 'none'; });
             mahSelectedModel = models[0] || null;
             return;
         }
 
-        wrapper.style.display = 'flex';
         if (!mahSelectedModel || !models.includes(mahSelectedModel)) {
             mahSelectedModel = models[0];
         }
 
-        wrapper.innerHTML = models.map((m, i) => {
+        const html = models.map((m, i) => {
             const color  = COLORS[i % COLORS.length];
             const active = m === mahSelectedModel;
             return `<button
@@ -661,6 +665,8 @@
                 onclick="setMahModel('${m}')"
             >${m}</button>`;
         }).join('');
+
+        wrappers.forEach(w => { w.style.display = 'flex'; w.innerHTML = html; });
     }
 
     window.setMahModel = function(model) {
@@ -885,7 +891,10 @@
     function renderDeppenTable() {
         const container = document.getElementById('deppen-table');
         const deppenCol = document.getElementById('deppen-col');
-        const mahCol    = document.getElementById('mah-col');
+        // A coluna que acompanha as dependencias e agora a da reputacao de Mahalanobis;
+        // o cartao das zonas (#mah-col) passou a ocupar sempre a largura toda.
+        // Original: const mahCol = document.getElementById('mah-col');
+        const mahCol    = document.getElementById('mahpen-col');
         if (!container) return;
 
         let results = getResults();

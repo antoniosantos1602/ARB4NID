@@ -73,8 +73,8 @@ class A2PMAttack(BaseAttack):
                     "type": "interval",
                     "features": feat_list,
                     "integer": int_list,
-                    "ratio": extract_num(form.get("ratio"), float, 0.1),
-                    "max_ratio": extract_num(form.get("max_ratio"), float, 0.3),
+                    "ratio": extract_num(form.get("ratio"), float, 0.05),
+                    "max_ratio": extract_num(form.get("max_ratio"), float, 0.1),
                     "missing": extract_num(form.get("missing_value"), float, 0.0),
                     "prob": extract_num(form.get("interval_probability"), float, 0.4)
                 })

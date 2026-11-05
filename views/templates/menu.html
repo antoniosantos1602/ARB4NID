@@ -242,11 +242,11 @@
                                     <div class="row g-2 mt-1">
                                         <div class="col-md-4">
                                             <label class="form-label small text-info">Ratio</label>
-                                            <input type="text" class="form-control form-control-sm bg-transparent text-white border-secondary" name="ratio" value="0.2">
+                                            <input type="text" class="form-control form-control-sm bg-transparent text-white border-secondary" name="ratio" value="0.05">
                                         </div>
                                         <div class="col-md-4">
                                             <label class="form-label small text-info">Max Ratio</label>
-                                            <input type="text" class="form-control form-control-sm bg-transparent text-white border-secondary" name="max_ratio" value="0.4">
+                                            <input type="text" class="form-control form-control-sm bg-transparent text-white border-secondary" name="max_ratio" value="0.1">
                                         </div>
                                         <div class="col-md-4">
                                             <label class="form-label small text-info">Prob.</label>
@@ -363,23 +363,23 @@
 
                 <div class="col-xl-3 col-lg-3 d-flex flex-column gap-3">
 
-                    <div>
+                    <div style="flex:1;display:flex;flex-direction:column;">
                         <p class="section-title mb-2" style="font-size:0.7rem;">Clean Accuracy</p>
-                        <div id="dash-clean-acc" style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;display:flex;align-items:center;justify-content:center;text-align:center;">
+                        <div id="dash-clean-acc" style="flex:1;background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;display:flex;align-items:center;justify-content:center;text-align:center;">
                             <div class="text-muted" style="font-size:0.8rem;">Waiting for results...</div>
                         </div>
                     </div>
 
-                    <div>
+                    <div style="flex:1;display:flex;flex-direction:column;">
                         <p class="section-title mb-2" style="font-size:0.7rem;">RAA Mean</p>
-                        <div id="dash-raa" style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;display:flex;align-items:center;justify-content:center;text-align:center;">
+                        <div id="dash-raa" style="flex:1;background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;display:flex;align-items:center;justify-content:center;text-align:center;">
                             <div class="text-muted" style="font-size:0.8rem;">Waiting for results...</div>
                         </div>
                     </div>
 
-                    <div>
+                    <div style="flex:1;display:flex;flex-direction:column;">
                         <p class="section-title mb-2" style="font-size:0.7rem;">RAA Min</p>
-                        <div id="dash-worst-case" style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;display:flex;align-items:center;justify-content:center;text-align:center;">
+                        <div id="dash-worst-case" style="flex:1;background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;display:flex;align-items:center;justify-content:center;text-align:center;">
                             <div class="text-muted" style="font-size:0.8rem;">Waiting for results...</div>
                         </div>
                     </div>
@@ -433,24 +433,34 @@
             </div>
 
             <!-- ROW 4: Dependency (col-6, conditional) | Mahalanobis (col-6 or col-12) -->
-            <div class="row g-3 align-items-start mb-5">
+            <!-- ROW 4: Dependency Reputation | Mahalanobis Reputation lado a lado.
+                 A reputacao de Mahalanobis estava aninhada dentro do cartao das zonas,
+                 o que deixava a coluna das dependencias (tabela curta) com um vazio enorme. -->
+            <div class="row g-3 align-items-stretch mb-4">
                 <div id="deppen-col" class="col-lg-6" style="display:none;">
                     <p class="section-title mb-2" style="font-size:0.7rem;">Dependency Reputation per Attack <small style="text-transform:none;font-size:0.68rem;letter-spacing:0;color:#888;">— fraction of dependency rules respected (p25 / median / mean / p75)</small></p>
-                    <div style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;">
+                    <div style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;height:100%;">
                         <div id="deppen-model-pills" class="d-flex flex-wrap gap-2 mb-2" style="display:none;"></div>
                         <div id="deppen-table" style="overflow-x:auto;"></div>
                     </div>
                 </div>
-                <div id="mah-col" class="col-lg-12">
+                <div id="mahpen-col" class="col-lg-12">
+                    <p class="section-title mb-2" style="font-size:0.7rem;">Mahalanobis Reputation per Attack <small style="text-transform:none;font-size:0.68rem;letter-spacing:0;color:#888;">— reputation score (p25 / median / mean / p75)</small></p>
+                    <div style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;height:100%;">
+                        <div id="mahpen-model-pills" class="d-flex flex-wrap gap-2 mb-2" style="display:none;"></div>
+                        <div id="mahpen-table" style="overflow-x:auto;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 5: Mahalanobis Zones a toda a largura -->
+            <div class="row g-3 mb-5">
+                <div id="mah-col" class="col-12">
                     <p class="section-title mb-2" style="font-size:0.7rem;">Mahalanobis Zones per Attack <small style="text-transform:none;font-size:0.68rem;letter-spacing:0;color:#888;">— distribution across statistical zones</small></p>
                     <div style="background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem;">
                         <div id="mah-model-pills" class="d-flex flex-wrap gap-2 mb-2" style="display:none;"></div>
                         <div id="mah-chart-wrapper" style="position:relative;height:320px;overflow-x:auto;">
                             <canvas id="mahChart"></canvas>
-                        </div>
-                        <div class="mt-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.08);">
-                            <p class="section-title mb-2" style="font-size:0.7rem;">Mahalanobis Reputation per Attack <small style="text-transform:none;font-size:0.68rem;letter-spacing:0;color:#888;">— reputation score (p25 / median / mean / p75)</small></p>
-                            <div id="mahpen-table" style="overflow-x:auto;"></div>
                         </div>
                     </div>
                 </div>
