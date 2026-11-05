@@ -11,3 +11,8 @@ def index():
 @views_bp.route("/menu")
 def menu():
     return render_template("menu.html")
+
+
+@views_bp.route("/health")
+def health():
+    return {"status": "ok"}, 200

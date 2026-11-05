@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [dev]
+  push:
+    branches: [dev]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  ci:
+    uses: antoniosantos1602/ci-cd-templates/.github/workflows/ci_docker.yml@fix/repo-name-cosign
+    with:
+      path: "."
+      name: arb4nid
+      language: python
+      language-version: "3.11"
+      install: pip install -r requirements-docker.txt -r requirements-dev.txt
+      lint: ruff check .
+      test: pytest
+      registry: arb4nid.azurecr.io
+      deployer: none
+    secrets: inherit
