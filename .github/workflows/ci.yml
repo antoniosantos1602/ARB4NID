@@ -26,5 +26,5 @@ jobs:
       lint: ruff check .
       test: pytest
       registry: arb4nid.azurecr.io
-      deployer: none
+      deployer: vm
     secrets: inherit
