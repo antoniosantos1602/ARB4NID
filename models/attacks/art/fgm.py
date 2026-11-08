@@ -54,6 +54,7 @@ class FGMAttack(BaseAttack):
                 eps=config.eps,
                 eps_step=config.eps_step,
                 batch_size=config.batch_size,
+                targeted=config.targeted,
                 minimal=True,
             )
 
